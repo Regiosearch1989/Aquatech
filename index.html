@@ -1465,6 +1465,167 @@
     }
 
     /* =============================================
+       VORHER / NACHHER SLIDER
+    ============================================= */
+    #vorher-nachher {
+      padding: 96px 0;
+      background: var(--gray-800);
+    }
+    #vorher-nachher .section-header { margin-bottom: 48px; }
+    #vorher-nachher .section-header h2 { color: var(--white); }
+    #vorher-nachher .section-header p  { color: rgba(255,255,255,.65); }
+    #vorher-nachher .section-tag {
+      background: rgba(255,255,255,.1);
+      color: rgba(255,255,255,.9);
+    }
+
+    .vn-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Slider */
+    .vn-slider {
+      position: relative;
+      width: 100%;
+      height: 520px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: col-resize;
+      user-select: none;
+      box-shadow: var(--shadow-xl);
+    }
+
+    /* NACHHER – volle Breite im Hintergrund */
+    .vn-after {
+      position: absolute;
+      inset: 0;
+    }
+    .vn-after img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* VORHER – wird per clip-path beschnitten */
+    .vn-before {
+      position: absolute;
+      inset: 0;
+      clip-path: inset(0 50% 0 0);
+      transition: clip-path .05s linear;
+    }
+    .vn-before img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* Labels */
+    .vn-label {
+      position: absolute;
+      top: 20px;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      pointer-events: none;
+    }
+    .vn-label-before {
+      left: 16px;
+      background: rgba(0,0,0,.55);
+      color: white;
+      border: 1px solid rgba(255,255,255,.25);
+    }
+    .vn-label-after {
+      right: 16px;
+      background: var(--brand);
+      color: white;
+    }
+
+    /* Drag Handle */
+    .vn-handle {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      cursor: col-resize;
+      z-index: 10;
+    }
+    .vn-handle-line {
+      flex: 1;
+      width: 3px;
+      background: white;
+      opacity: .9;
+    }
+    .vn-handle-btn {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.35);
+      flex-shrink: 0;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .vn-handle:hover .vn-handle-btn,
+    .vn-handle:focus .vn-handle-btn {
+      transform: scale(1.12);
+      box-shadow: 0 6px 24px rgba(0,0,0,.45);
+    }
+    .vn-handle-btn i {
+      color: var(--brand);
+      font-size: .75rem;
+    }
+    .vn-handle:focus { outline: none; }
+    .vn-handle:focus-visible .vn-handle-btn {
+      outline: 3px solid #7ec8ff;
+      outline-offset: 2px;
+    }
+
+    /* Info Bar */
+    .vn-info-bar {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      padding: 20px 28px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius-md);
+    }
+    .vn-info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.75);
+    }
+    .vn-info-item i { color: var(--brand); font-size: .85rem; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .vn-slider { height: 320px; }
+      .vn-info-bar { gap: 16px 28px; padding: 16px; }
+    }
+
+    /* =============================================
        UTILITY
     ============================================= */
     .text-center { text-align: center; }
@@ -1787,6 +1948,74 @@
         <a href="#kontakt" class="btn btn-outline btn-lg">
           <i class="fas fa-images" aria-hidden="true"></i>
           Alle Referenzen ansehen
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       VORHER / NACHHER SLIDER
+  =========================================== -->
+  <section id="vorher-nachher" aria-labelledby="vn-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">
+          <i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i>
+          Transformation
+        </div>
+        <h2 id="vn-heading">Vorher & Nachher –<br>Sehen Sie den Unterschied</h2>
+        <p>Ziehen Sie den Regler und erleben Sie, wie Aquatech einen ungenutzten Kellerraum in ein modernes Designbad verwandelt hat.</p>
+      </div>
+
+      <div class="vn-wrapper reveal">
+        <!-- Slider Container -->
+        <div class="vn-slider" id="vn-slider" role="img" aria-label="Vorher-Nachher Vergleich: Badezimmerrenovation">
+
+          <!-- NACHHER (Hintergrund, volle Breite) -->
+          <div class="vn-after">
+            <img src="nachher.jpg" alt="Badezimmer nach der Renovation – modernes Design mit LED-Beleuchtung" />
+            <span class="vn-label vn-label-after">Nachher</span>
+          </div>
+
+          <!-- VORHER (obendrauf, wird durch Clip beschnitten) -->
+          <div class="vn-before" id="vn-before">
+            <img src="vorher.jpg" alt="Kellerraum vor der Renovation – Rohbauzustand" />
+            <span class="vn-label vn-label-before">Vorher</span>
+          </div>
+
+          <!-- Drag Handle -->
+          <div class="vn-handle" id="vn-handle" role="slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Regler Vorher/Nachher" tabindex="0">
+            <div class="vn-handle-line"></div>
+            <div class="vn-handle-btn">
+              <i class="fas fa-chevron-left" aria-hidden="true"></i>
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </div>
+            <div class="vn-handle-line"></div>
+          </div>
+        </div>
+
+        <!-- Bottom Info Bar -->
+        <div class="vn-info-bar">
+          <div class="vn-info-item">
+            <i class="fas fa-ruler-combined" aria-hidden="true"></i>
+            <span>Komplette Badezimmersanierung</span>
+          </div>
+          <div class="vn-info-item">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <span>Realisiert in 3 Wochen</span>
+          </div>
+          <div class="vn-info-item">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            <span>Pratteln, Kanton Basel-Landschaft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-24 reveal">
+        <a href="#kontakt" class="btn btn-primary btn-lg">
+          <i class="fas fa-paper-plane" aria-hidden="true"></i>
+          Mein Bad renovieren lassen
         </a>
       </div>
     </div>
@@ -2386,6 +2615,49 @@
         if (field.value.trim()) field.style.borderColor = '';
       });
     });
+
+
+    /* ==========================================
+       8. VORHER / NACHHER SLIDER
+    ========================================== */
+    const vnSlider = document.getElementById('vn-slider');
+    const vnBefore = document.getElementById('vn-before');
+    const vnHandle = document.getElementById('vn-handle');
+
+    if (vnSlider && vnBefore && vnHandle) {
+      let isDragging = false;
+
+      function setSliderPos(clientX) {
+        const rect = vnSlider.getBoundingClientRect();
+        let pct = (clientX - rect.left) / rect.width;
+        pct = Math.max(0.02, Math.min(0.98, pct));
+        const rightPct = (1 - pct) * 100;
+        vnBefore.style.clipPath = `inset(0 ${rightPct}% 0 0)`;
+        vnHandle.style.left = `${pct * 100}%`;
+        vnHandle.setAttribute('aria-valuenow', Math.round(pct * 100));
+      }
+
+      // Mouse events
+      vnHandle.addEventListener('mousedown', e => { isDragging = true; e.preventDefault(); });
+      window.addEventListener('mousemove', e => { if (isDragging) setSliderPos(e.clientX); });
+      window.addEventListener('mouseup',   () => { isDragging = false; });
+
+      // Touch events
+      vnHandle.addEventListener('touchstart', e => { isDragging = true; e.preventDefault(); }, { passive: false });
+      window.addEventListener('touchmove',  e => { if (isDragging) setSliderPos(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchend',   () => { isDragging = false; });
+
+      // Click anywhere on slider
+      vnSlider.addEventListener('click', e => setSliderPos(e.clientX));
+
+      // Keyboard accessibility
+      vnHandle.addEventListener('keydown', e => {
+        const rect = vnSlider.getBoundingClientRect();
+        const cur = parseFloat(vnHandle.style.left) || 50;
+        if (e.key === 'ArrowLeft')  setSliderPos(rect.left + (cur - 5) / 100 * rect.width);
+        if (e.key === 'ArrowRight') setSliderPos(rect.left + (cur + 5) / 100 * rect.width);
+      });
+    }
 
 
     /* ==========================================
